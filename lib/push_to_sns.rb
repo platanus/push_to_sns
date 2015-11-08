@@ -1,6 +1,7 @@
 require "json"
 require "deep_merge/rails_compat"
 require_relative "./push_to_sns/version"
+require_relative "./push_to_sns/messages"
 require_relative "./push_to_sns/configuration"
 require_relative "./push_to_sns/setup_push_notification"
 require_relative "./push_to_sns/push_notifier"

@@ -85,8 +85,10 @@ end
 Now, imagine you have a football match and you want to notify users about a new goal being made. First, create a push notification object. In Rails, you can do this:
 
 ```
-rails generate push_to_sns:notification new_goal goal
+rails generate push_to_sns:notifier new_goal goal
 ```
+
+The parameter `new_goal` will be used to set the notifier's name and the next parameters (`goal`, for example) will be used to add some attribute accessors to the new notifier. This will help with the initialization of the notifier.
 
 It will create the following object in `app/push_notifiers/new_goal_push_notifier.rb`:
 
@@ -133,10 +135,10 @@ end
 
 ### Send the push notification
 
-Now, in whatever place you want to, deliver the notifier:
+Now, in whatever place you want to, deliver the notifier by creating a push notifier with the given arguments (those attribute accesors that we set before) and calling `deliver` after that:
 
 ```ruby
-NewGoalPushNotifier.new(goal).deliver
+NewGoalPushNotifier.new(goal: goal).deliver
 ```
 
 ## Development
