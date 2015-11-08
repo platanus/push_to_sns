@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard-rspec", "~> 4.6"
   spec.add_development_dependency "rspec-nc", "~> 0.2"
   spec.add_development_dependency "rspec-legacy_formatters", "~> 1.0"
+  spec.add_runtime_dependency "deep_merge","~> 1.0"
 end

@@ -1,6 +1,13 @@
+require "json"
+require "deep_merge/rails_compat"
 require_relative "./push_to_sns/version"
 require_relative "./push_to_sns/configuration"
-require_relative "./push_to_sns/setup_push_notifications"
+require_relative "./push_to_sns/setup_push_notification"
+require_relative "./push_to_sns/push_notifier"
+require_relative "./push_to_sns/send_push_notification"
+require_relative "./push_to_sns/basic_push_notification"
+require_relative "./push_to_sns/ios_push_notification"
+require_relative "./push_to_sns/android_push_notification"
 
 module PushToSNS
   def self.configure(&block)
@@ -12,6 +19,6 @@ module PushToSNS
   end
 
   def self.setup_device(device)
-    PushToSNS::SetupPushNotifications.new(device).perform
+    PushToSNS::SetupPushNotification.new(device).perform
   end
 end

@@ -1,5 +1,5 @@
 module PushToSNS
-  class SetupPushNotifications
+  class SetupPushNotification
     def initialize(device, configuration = PushToSNS.configuration)
       self.device = device
       self.configuration = configuration

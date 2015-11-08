@@ -14,12 +14,12 @@ describe PushToSNS do
   describe ".setup_device" do
     let(:device) { "device" }
 
-    it "tells a new SetupPushNotifications object to perform with the device" do
+    it "tells a new SetupPushNotification object to perform with the device" do
       setup = double
-      allow(PushToSNS::SetupPushNotifications).to receive(:new).and_return(setup)
+      allow(PushToSNS::SetupPushNotification).to receive(:new).and_return(setup)
       allow(setup).to receive(:perform)
       PushToSNS.setup_device(device)
-      expect(PushToSNS::SetupPushNotifications).to have_received(:new).with(device)
+      expect(PushToSNS::SetupPushNotification).to have_received(:new).with(device)
       expect(setup).to have_received(:perform)
     end
   end

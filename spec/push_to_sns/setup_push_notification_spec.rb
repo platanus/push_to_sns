@@ -1,4 +1,4 @@
-describe PushToSNS::SetupPushNotifications do
+describe PushToSNS::SetupPushNotification do
   let(:device) do
     double(source: "ios", id: "ID", endpoint: "endpoint", save_endpoint: true)
   end

@@ -1,4 +1,5 @@
 --color
+--require pry
 --require spec_helper
 --require push_to_sns
 --format=doc
