@@ -1,6 +1,6 @@
-# PushToSns
+# PushToSNS
 
-PushToSns is an opinionated gem to allow pushing push notifications through SNS. It assumes you want to use a type and a message in your payload, that you already configured the AWS gem and that your message is encoded as json. If this is your case, this will make your life easier.
+PushToSNS is an opinionated gem to allow pushing push notifications through SNS. It assumes you want to use a type and a message in your payload, that you already configured the AWS gem and that your message is encoded as json. If this is your case, this will make your life easier.
 
 ## Installation
 

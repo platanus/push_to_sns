@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Organized SNS Push Notifications for Ruby.}
   spec.description   = %q{Organized SNS Push Notifications for Ruby.}
-  spec.homepage      = "https://github.com/platanus/push-to-sns"
+  spec.homepage      = "https://github.com/platanus/push_to_sns"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
