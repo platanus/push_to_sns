@@ -16,6 +16,8 @@ module PushToSNS
       )
 
       response[:message_id]
+    rescue AWS::SNS::Errors::EndpointDisabled => _exception
+      perform(payload)
     end
 
     private
