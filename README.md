@@ -109,7 +109,7 @@ class NewGoalPushNotifier < PushToSNS::PushNotifier
 end
 ```
 
-Now, we need to answer three questions:
+Now, we need to answer two questions:
 
 - What devices do we need to notify of this goal?
 - What is the data we need to send?
