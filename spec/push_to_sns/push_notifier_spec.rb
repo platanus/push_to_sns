@@ -24,7 +24,7 @@ describe PushToSNS::PushNotifier do
     end
 
     it "allows to specify type and message" do
-      notifier.type :type
+      notifier.type { :type }
       notifier.message "message"
       notifier.send(:define_method, :notification) { |device| { name: "device" } }
 

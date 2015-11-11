@@ -23,7 +23,12 @@ module PushToSNS
     private
 
     def full_notification_for_device(device)
-      defaults = { type: type, message: message }
+      defaults = {
+        type: call_or_read(type, device),
+        message: call_or_read(message, device),
+        badge: call_or_read(badge, device),
+        sound: call_or_read(sound, device)
+      }.reject { |key, value| value.nil? }
       defaults.merge(notification(device))
     end
 
@@ -35,22 +40,37 @@ module PushToSNS
       @message ||= self.class.message
     end
 
-    class << self
-      attr_accessor :input_type, :input_message
+    def badge
+      @badge ||= self.class.badge
+    end
 
-      def type(input_type = nil)
-        if input_type.nil?
-          self.input_type
-        else
-          self.input_type = input_type
-        end
+    def sound
+      @sound ||= self.class.sound
+    end
+
+    private
+
+    def call_or_read(proc_or_object, *arguments)
+      if proc_or_object.respond_to?(:call)
+        proc_or_object.call(*arguments)
+      else
+        proc_or_object
       end
+    end
 
-      def message(input_message = nil)
-        if input_message.nil?
-          self.input_message
-        else
-          self.input_message = input_message
+    class << self
+      [:type, :message, :badge, :sound].each do |method_name|
+        property_name = "input_#{method_name}".to_sym
+        attr_accessor property_name
+
+        define_method(method_name) do |input = nil, &block|
+          if input.nil? && block.nil?
+            public_send(property_name)
+          elsif input.nil? && !block.nil?
+            public_send("#{property_name}=", block)
+          elsif !input.nil?
+            public_send("#{property_name}=", input)
+          end
         end
       end
     end

@@ -9,9 +9,13 @@ module PushToSNS
     private
 
     def default_payload
-      {
+      basic_message = {
         message: payload[:message] || DEFAULT_MESSAGE
       }
+      basic_message[:smallIcon] = payload[:badge] if payload[:badge]
+      basic_message[:sound] = payload[:sound] if payload[:sound]
+
+      basic_message
     end
   end
 end
