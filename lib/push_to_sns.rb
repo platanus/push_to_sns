@@ -4,6 +4,7 @@ require_relative "./push_to_sns/version"
 require_relative "./push_to_sns/messages"
 require_relative "./push_to_sns/configuration"
 require_relative "./push_to_sns/setup_push_notification"
+require_relative "./push_to_sns/teardown_push_notification"
 require_relative "./push_to_sns/push_notifier"
 require_relative "./push_to_sns/send_push_notification"
 require_relative "./push_to_sns/basic_push_notification"
@@ -21,5 +22,9 @@ module PushToSNS
 
   def self.setup_device(device)
     PushToSNS::SetupPushNotification.new(device).perform
+  end
+
+  def self.teardown_device(device)
+    PushToSNS::TeardownPushNotification.new(device).perform
   end
 end

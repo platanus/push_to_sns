@@ -8,8 +8,8 @@ module PushToSNS
       "Not Implemented Method `#{method_name.to_s}`: #{message.call}"
     end
 
-    READ_DEVICE_ID_NOT_IMPLEMENTED = not_implemented_config(:read_device_id) do
-      "How to read the device's id from a device object?"
+    READ_DEVICE_TOKEN_NOT_IMPLEMENTED = not_implemented_config(:read_device_token) do
+      "How to read the device's token from a device object?"
     end
 
     READ_SOURCE_NOT_IMPLEMENTED = not_implemented_config(:read_source) do

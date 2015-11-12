@@ -16,7 +16,7 @@ module PushToSNS
     def create_endpoint_arn
       AWS.sns.client.create_platform_endpoint({
         platform_application_arn: configuration.apply(:read_platform_arn, device),
-        token: configuration.apply(:read_device_id, device)
+        token: configuration.apply(:read_device_token, device)
       })[:endpoint_arn]
     end
   end

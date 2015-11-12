@@ -1,11 +1,11 @@
 describe PushToSNS::SendPushNotification do
   let(:device) do
-    double(source: "ios", id: "ID", endpoint: "endpoint", save_endpoint: true)
+    double(source: "ios", token: "TOKEN", endpoint: "endpoint", save_endpoint: true)
   end
 
   let(:configuration) do
     PushToSNS::Configuration.new.tap do |config|
-      config.read_device_id { |device| device.id }
+      config.read_device_token { |device| device.token }
       config.read_source { |device| device.source }
       config.read_endpoint_arn { |device| device.endpoint }
       config.read_platform_arn { |device| "PLATFORM_ARN" }
@@ -27,7 +27,7 @@ describe PushToSNS::SendPushNotification do
     {
       attributes: {
         "Enabled" => "true",
-        "Token" => device.id
+        "Token" => device.token
       }
     }
   end
@@ -56,7 +56,7 @@ describe PushToSNS::SendPushNotification do
       send_command.perform({})
       expect(client).to have_received(:set_endpoint_attributes).with(
         endpoint_arn: device.endpoint,
-        attributes: { "Enabled" => "True", "Token" => device.id }
+        attributes: { "Enabled" => "True", "Token" => device.token }
       )
     end
 
@@ -65,7 +65,7 @@ describe PushToSNS::SendPushNotification do
       send_command.perform({})
       expect(client).to have_received(:set_endpoint_attributes).with(
         endpoint_arn: device.endpoint,
-        attributes: { "Enabled" => "True", "Token" => device.id }
+        attributes: { "Enabled" => "True", "Token" => device.token }
       )
     end
 

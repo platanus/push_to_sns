@@ -31,7 +31,7 @@ $ bundle
 
   ```ruby
     PushToSNS.configure do
-      read_device_id { |device| }
+      read_device_token { |device| }
       read_source { |device| }
       read_endpoint_arn { |device| }
       read_platform_arn { |device|  }
@@ -46,7 +46,7 @@ $ bundle
 
   ```ruby
     PushToSNS.configure do
-      read_device_id { |device| device.device_id }
+      read_device_token { |device| device.device_token }
       read_source { |device| device.source }
       read_endpoint_arn { |device| device.endpoint_arn }
       read_platform_arn { |device| ENV["SNS_#{device.source.upcase}_PLATFORM_ARN"] }
@@ -60,20 +60,28 @@ $ bundle
 
 ### Device Setup
 
-This is up to you in some way. For example, you can have a controller to receive `device_id`s from a mobile device and you want to register the device to be able to receive push notifications. You can do it in this way:
+This is up to you in some way. For example, you can have a controller to receive a `device_token` and `device_uuid` from a mobile device and you want to register the device to be able to receive push notifications. You can do it in this way:
 
 ```ruby
 class DevicesController < ApiController
   def create
-    device = Device.create(device_params)
-    PushToSNS.setup_device(device)    
+    device = Device.find_by(device_uuid: device_params[:device_uuid])
+    if device.present?
+      # We first teardown the old endpoint arn.
+      PushToSNS.teardown_device(device)
+      device.update(device_params.slice(:device_token))
+    else
+      device = Device.create(device_params)
+    end
+
+    PushToSNS.setup_device(device)
     respond_with device
   end
 
   private
 
   def device_params
-    params.require(:device).permit(:device_id, :source)
+    params.require(:device).permit(:device_token, :device_uuid, :source)
   end
 end
 ```

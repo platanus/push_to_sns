@@ -36,7 +36,7 @@ module PushToSNS
     def ensure_endpoint_arn_is_enabled
       attributes = get_endpoint_attributes
 
-      if attributes["Enabled"].downcase == "false" || attributes["Token"] != device_id
+      if attributes["Enabled"].downcase == "false" || attributes["Token"] != device_token
         enable_endpoint_arn
       end
     end
@@ -52,13 +52,13 @@ module PushToSNS
         endpoint_arn: endpoint_arn,
         attributes: {
           "Enabled" => "True",
-          "Token" => device_id
+          "Token" => device_token
         }
       )[:endpoint_arn]
     end
 
-    def device_id
-      @device_id ||= configuration.apply(:read_device_id, device)
+    def device_token
+      @device_token ||= configuration.apply(:read_device_token, device)
     end
 
     def endpoint_arn

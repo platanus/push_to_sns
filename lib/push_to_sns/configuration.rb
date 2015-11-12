@@ -1,7 +1,7 @@
 module PushToSNS
   class Configuration
     PROC_PROPERTIES = %i(
-      read_device_id
+      read_device_token
       read_source
       read_endpoint_arn
       read_platform_arn
