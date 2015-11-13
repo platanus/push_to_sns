@@ -24,14 +24,14 @@ describe PushToSNS::PushNotifier do
     end
 
     it "allows to specify type and message" do
-      notifier.type { :type }
+      notifier.type { self.class.superclass.name }
       notifier.message "message"
       notifier.send(:define_method, :notification) { |device| { name: "device" } }
 
       notifier.new.deliver
 
       expect(send_notification).to have_received(:perform).with(
-        type: :type,
+        type: "PushToSNS::PushNotifier",
         message: "message",
         name: "device"
       ).exactly(2).times

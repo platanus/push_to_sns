@@ -52,7 +52,7 @@ module PushToSNS
 
     def call_or_read(proc_or_object, *arguments)
       if proc_or_object.respond_to?(:call)
-        proc_or_object.call(*arguments)
+        instance_exec(*arguments, &proc_or_object)
       else
         proc_or_object
       end
