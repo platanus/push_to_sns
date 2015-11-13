@@ -8,7 +8,11 @@ module PushToSNS
 
     def deliver
       devices.each do |device|
-        SendPushNotification.new(device).perform(full_notification_for_device(device))
+        begin
+          SendPushNotification.new(device).perform(full_notification_for_device(device))
+        rescue AWS::SNS::Errors::Base => e
+          $stderr.puts "Device can't send push notifications: #{e.message}"
+        end
       end
     end
 
