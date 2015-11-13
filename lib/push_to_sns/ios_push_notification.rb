@@ -7,8 +7,7 @@ module PushToSNS
         apns => {
           aps: {
             alert: payload[:message] || DEFAULT_MESSAGE
-          },
-          data: payload
+          }.merge(payload)
         }
       }
       basic_message[apns][:aps][:badge] = payload[:badge] if payload[:badge]

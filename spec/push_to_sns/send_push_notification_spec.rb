@@ -76,8 +76,7 @@ describe PushToSNS::SendPushNotification do
         message_structure: "json",
         message: {
           "APNS" => {
-            aps: { alert: "Message" },
-            data: { message: "Message" }
+            aps: { alert: "Message", message: "Message" }
           }.to_json
         }.to_json,
         target_arn: device.endpoint,
