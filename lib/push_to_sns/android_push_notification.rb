@@ -1,7 +1,5 @@
 module PushToSNS
   class AndroidPushNotification < BasicPushNotification
-    DEFAULT_MESSAGE = "Android Push Notification"
-
     def message
       { GCM: { data: default_payload.deeper_merge(payload) }.to_json }
     end
@@ -9,13 +7,13 @@ module PushToSNS
     private
 
     def default_payload
-      basic_message = {
-        message: payload[:message] || DEFAULT_MESSAGE
-      }
-      basic_message[:smallIcon] = payload[:badge] if payload[:badge]
-      basic_message[:sound] = payload[:sound] if payload[:sound]
+      basic_payload = {}
+      basic_payload[:title] = payload[:title] if payload[:title]
+      basic_payload[:message] = payload[:message] if payload[:message]
+      basic_payload[:smallIcon] = payload[:small_icon] if payload[:small_icon]
+      basic_payload[:sound] = payload[:sound] if payload[:sound]
 
-      basic_message
+      basic_payload
     end
   end
 end

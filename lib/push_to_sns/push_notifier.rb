@@ -52,6 +52,14 @@ module PushToSNS
       @sound ||= self.class.sound
     end
 
+    def title
+      @title ||= self.class.title
+    end
+
+    def small_icon
+      @small_icon ||= self.class.small_icon
+    end
+
     private
 
     def call_or_read(proc_or_object, *arguments)
@@ -63,7 +71,7 @@ module PushToSNS
     end
 
     class << self
-      [:type, :message, :badge, :sound].each do |method_name|
+      [:type, :message, :badge, :sound, :title, :small_icon].each do |method_name|
         property_name = "input_#{method_name}".to_sym
         attr_accessor property_name
 

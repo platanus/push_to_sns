@@ -1,19 +1,21 @@
 module PushToSNS
   class IosPushNotification < BasicPushNotification
-    DEFAULT_MESSAGE = "IOS Push Notification"
-
     def message
       basic_message = {
         apns => {
-          aps: {
-            alert: payload[:message] || DEFAULT_MESSAGE
-          }.merge(payload)
-        }
+          aps: default_payload.merge(payload)
+        }.to_json
       }
-      basic_message[apns][:aps][:badge] = payload[:badge] if payload[:badge]
-      basic_message[apns][:aps][:sound] = payload[:sound] if payload[:sound]
-      basic_message[apns] = basic_message[apns].to_json
       basic_message
+    end
+
+    def default_payload
+      basic_payload = {}
+      basic_payload[:title] = payload[:title] if payload[:title]
+      basic_payload[:alert] = payload[:message] if payload[:message]
+      basic_payload[:badge] = payload[:badge] if payload[:badge]
+      basic_payload[:sound] = payload[:sound] if payload[:sound]
+      basic_payload
     end
 
     private
