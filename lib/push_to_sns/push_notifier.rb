@@ -31,7 +31,9 @@ module PushToSNS
         type: call_or_read(type, device),
         message: call_or_read(message, device),
         badge: call_or_read(badge, device),
-        sound: call_or_read(sound, device)
+        sound: call_or_read(sound, device),
+        small_icon: call_or_read(small_icon, device),
+        title: call_or_read(title, device)
       }.reject { |key, value| value.nil? }
       defaults.merge(notification(device))
     end
