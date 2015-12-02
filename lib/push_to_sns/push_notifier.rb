@@ -33,7 +33,8 @@ module PushToSNS
         badge: call_or_read(badge, device),
         sound: call_or_read(sound, device),
         small_icon: call_or_read(small_icon, device),
-        title: call_or_read(title, device)
+        title: call_or_read(title, device),
+        image: call_or_read(image, device)
       }.reject { |key, value| value.nil? }
       defaults.merge(notification(device))
     end
@@ -58,6 +59,10 @@ module PushToSNS
       @title ||= self.class.title
     end
 
+    def image
+      @image ||= self.class.image
+    end
+
     def small_icon
       @small_icon ||= self.class.small_icon
     end
@@ -73,7 +78,7 @@ module PushToSNS
     end
 
     class << self
-      [:type, :message, :badge, :sound, :title, :small_icon].each do |method_name|
+      [:type, :message, :badge, :sound, :title, :small_icon, :image].each do |method_name|
         property_name = "input_#{method_name}".to_sym
         attr_accessor property_name
 
