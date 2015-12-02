@@ -13,6 +13,7 @@ module PushToSNS
       basic_payload[:smallIcon] = payload[:small_icon] if payload[:small_icon]
       basic_payload[:sound] = payload[:sound] if payload[:sound]
       basic_payload[:image] = payload[:image] if payload[:image]
+      basic_payload[:notId] = payload[:notification_id] if payload[:notification_id]
 
       basic_payload
     end
